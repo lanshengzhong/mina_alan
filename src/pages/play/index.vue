@@ -34,10 +34,7 @@
         <img :src="icon.next" mode="aspectFit" alt="">
       </div>
     </div>
-    <!-- 加群 -->
-    <div class="padding-30 border-16" v-if="adflag">
-      <Join></Join>
-    </div>
+    
     <!-- 评论 -->
     <div class="discuss padding-30">
       <div class="title">
@@ -57,7 +54,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import Join from '@/components/join/join'
 import Comment from '@/components/comment/comment'
 import LoadingMore from '@/components/loading/loading'
 import { toast, formatDuration } from '@/utils'
@@ -85,7 +81,6 @@ export default {
     }
   },
   components: {
-    Join,
     Comment,
     LoadingMore
   },

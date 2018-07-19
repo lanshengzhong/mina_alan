@@ -27,9 +27,6 @@
         </div>
       </div>
 
-      <!--加群  -->
-      <Join v-if="adflag"></Join>
-      
       <!--简介  -->
       <div class='album-intro'>
         <div class='content'>
@@ -68,12 +65,10 @@
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 import { formatDuration } from '@/utils'
-import Join from '@/components/join/join'
 import Player from '@/components/player/player'
 
 export default {
   components: {
-    Join,
     Player
   },
   data() {

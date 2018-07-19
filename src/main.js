@@ -30,7 +30,7 @@ export default {
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: '儿童传统文化故事',
+      navigationBarTitleText: '阿兰哥哥',
       navigationBarTextStyle: 'black'
     }
   }
