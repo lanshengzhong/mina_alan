@@ -37,22 +37,15 @@
       </p>
     </div>
 
-    <!-- 打卡 -->
-    <div class="clock" @click="toClock()">
-      <img :src="icon.clock" mode="aspectFit" v-if="!clockflag" alt="">
-      <img :src="icon.clockactive" mode="aspectFit" v-if="clockflag" alt="">
-    </div>
-
     <!-- 底部播放栏 -->
     <Player v-if="playflag"></Player>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import Player from '@/components/player/player'
 import config from '@/utils/config'
-import api from '@/utils/api'
 
 export default {
   data() {
@@ -66,10 +59,7 @@ export default {
       clockinfo: {}, // 打卡信息
       icon: {
         icon: require('@/static/images/newplay.png'),
-        ad: require('@/static/images/ad.png'),
-        bg: require('@/static/images/indexbg.png'),
-        clock: require('@/static/images/clock.png'),
-        clockactive: require('@/static/images/clockactive.png')
+        bg: require('@/static/images/indexbg.png')
       }
     }
   },
@@ -78,8 +68,7 @@ export default {
       albumlist: state => state.albumlist,
       playflag: state => state.playflag,
       clockflag: state => state.clockflag,
-      jumpflag: state => state.jumpflag,
-      adflag: state => state.adflag
+      jumpflag: state => state.jumpflag
     })
   },
   components: {
@@ -90,13 +79,15 @@ export default {
     // 所以会直接触发 created 生命周期。
   },
   mounted() {
-    // 红枣FM封面广告
-    this.getFmFlag()
+
+  },
+  onShow() {
+    // 设置当前页title
+    wx.setNavigationBarTitle({
+      title: '阿兰哥哥'
+    })
   },
   methods: {
-    ...mapMutations([
-      'setAdFlag'
-    ]),
     ...mapActions([
       'selectPlay'
     ]),
@@ -114,35 +105,6 @@ export default {
       wx.navigateTo({
         url: `/pages/play/main?id=${this.albumlist[index].program[0].id}`
       })
-    },
-    async getFmFlag() {
-      // 首页控制显示红枣FM封面广告
-      const flag = await api.getFmFlag()
-      if (!flag) return false
-      this.setAdFlag(flag.status)
-    },
-    async toClock() {
-      /*
-        1.是否登陆
-        2.今日是否打卡
-      */
-      // 未登录
-      if (!wx.getStorageSync('token') || !wx.getStorageSync('userInfo').nickName) {
-        wx.navigateTo({
-          url: `/pages/login/main`
-        })
-        return false
-      }
-      // 打卡信息
-      const info = await api.getClockInfo()
-      if (!info) return false
-      this.clockinfo = info.data
-      if (this.clockinfo.avatar) {
-        // 跳转到打卡排行榜
-        wx.navigateTo({
-          url: `/pages/clock/main?avatar=${this.clockinfo.avatar}&month_rank=${this.clockinfo.month_rank}&month_total=${this.clockinfo.month_total}&today_rank=${this.clockinfo.today_rank}&total=${this.clockinfo.total}`
-        })
-      }
     },
     toAlbum(index, id) {
       // 跳转到专辑详情页
@@ -172,12 +134,6 @@ export default {
         url: `/pages/more/main`
       })
     }
-  },
-  onShow() {
-    // 设置当前页title
-    wx.setNavigationBarTitle({
-      title: config.title
-    })
   },
   onShareAppMessage(res) {
     // 来自页面内转发按钮
@@ -351,16 +307,6 @@ export default {
         right: 20rpx;
         transform: rotate(135deg);
       }
-    }
-  }
-  .clock {
-    position: fixed;
-    left: 0;
-    bottom: 120rpx;
-    width: 120rpx;
-    img {
-      width: 100%;
-      height: 120rpx;
     }
   }
 }

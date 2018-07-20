@@ -1,5 +1,5 @@
 <script>
-import { mapMutations, mapActions } from 'vuex'
+import { mapMutations } from 'vuex'
 // import api from '@/utils/api'
 import data from '@/data/data'
 
@@ -7,8 +7,6 @@ export default {
   mounted() {
     // 获取专辑列表
     this.getAlbumList()
-    // 是否打卡
-    this.getClockFlag()
   },
   onShow(res) {
     // 如果存在appid 说明是从其它小程序跳转过来的
@@ -23,9 +21,6 @@ export default {
       setAlbumList: 'SET_ALBUM_LIST',
       setJumpFlag: 'setJumpFlag'
     }),
-    ...mapActions([
-      'getClockFlag'
-    ]),
     async getAlbumList() {
       // 专辑列表
       // const list = await api.getAlbumList()
@@ -38,18 +33,10 @@ export default {
     },
     shareFrom() {
       const params = this.$root.$mp.query
-      console.log(params)
       // 从专辑页分享进来的的
       if (params && params.id) {
         wx.navigateTo({
           url: `/pages/album/main?index=${params.index}&id=${params.id}`
-        })
-        return false
-      }
-      // 从打开分享进来
-      if (params && params.total) {
-        wx.navigateTo({
-          url: `/pages/clockshare/main?avatar=${params.avatar}&month_rank=${params.month_rank}&month_total=${params.month_total}&today_rank=${params.today_rank}&total=${params.total}`
         })
         return false
       }

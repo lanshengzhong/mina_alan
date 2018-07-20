@@ -42,7 +42,7 @@
       </div>
       <Comment :commentlist="commentlist"></Comment>
       <!-- 加载中 -->
-      <LoadingMore :moreflag="moreflag"></LoadingMore>
+      <!-- <LoadingMore :moreflag="moreflag"></LoadingMore> -->
     </div>
     <!-- 输入框 -->
     <div class="inputfield flex-center">
@@ -56,7 +56,7 @@
 import { mapState, mapActions } from 'vuex'
 import Comment from '@/components/comment/comment'
 import LoadingMore from '@/components/loading/loading'
-import { toast, formatDuration } from '@/utils'
+import { formatDuration } from '@/utils'
 import api from '@/utils/api'
 
 export default {
@@ -100,25 +100,23 @@ export default {
     // 所以会直接触发 created 生命周期。
   },
   mounted() {
-    // 隐藏分享 当前页不可分享
-    wx.hideShareMenu()
     // 设置当前页信息
     this.setInfo(this.playinfo.title)
     // 如果点击的是同一节目即id相同 或 来自底部播放栏 type === 'player'  , 不需要初始化了
     if (Number(this.activeid) === Number(this.$root.$mp.query.id) || this.$root.$mp.query.type === 'player') {
-      return
+      return false
     }
     // 初始化
-    this.initializeComent()
+    // this.initializeComent()
     // 获取评论列表
-    this.getCommentList()
+    // this.getCommentList()
   },
   watch: {
     playinfo: function(val) {
       // 监听播放信息 设置当前页title
       this.setInfo(val.title)
       // 获取评论列表
-      this.getCommentPageOne()
+      // this.getCommentPageOne()
     },
     currenttime: function(time) {
       // 监听时间变化
@@ -130,7 +128,7 @@ export default {
     // 滚动到底部
     if (this.needflag !== 0) {
       this.needflag = 0
-      this.getCommentList()
+      // this.getCommentList()
     }
   },
   methods: {
@@ -215,34 +213,9 @@ export default {
       // 发送按钮
       this.verifyFn(this.content)
     },
-    async verifyFn(content) {
-      /*
-        发表评论验证
-        1. 是否登录
-        2. 字段验证
-      */
-      // 未登录
-      if (!wx.getStorageSync('token')) {
-        toast('请先登录后重试')
-        wx.navigateTo({
-          url: `/pages/login/main`
-        })
-        return
-      }
-      // 验证
-      if (content.length === 0 || content.match(/^\s+$/g)) {
-        toast('输入为空，或都是空格')
-        return
-      }
-      // 获取评论列表
-      const result = await api.createComment({
-        content: content,
-        program_id: this.playinfo.id
-      })
-      if (result.code === 200) {
-        toast('发表成功')
-        this.getCommentPageOne()
-      }
+    verifyFn(content) {
+      this.content = ''
+      return false
     }
   }
 }

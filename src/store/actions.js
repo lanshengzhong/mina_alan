@@ -40,23 +40,12 @@ const actions = {
     // 登录成功存入token
     if (info.data.token) {
       wx.setStorageSync('token', info.data.token)
-      // 请求是否打卡
-      dispatch('getClockFlag')
       // 关闭当前页
       toast('登录成功')
       // 隐藏loading
       hideLoading()
       // 返回页面
       wx.navigateBack()
-    }
-  },
-  // 用户今日是否打卡
-  async getClockFlag({dispatch, commit, state}) {
-    // 是否打卡接口
-    const flag = await api.getClockFlag()
-    if (flag) {
-      // 成功
-      commit('setClockFlag', flag.status)
     }
   },
   // 音频播放监听 各种事件处理

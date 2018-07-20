@@ -12,7 +12,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import { toast, showLoading } from '@/utils'
+import { toast } from '@/utils'
 
 export default {
   data() {
@@ -40,14 +40,25 @@ export default {
       'gotInfo'
     ]),
     getUserInfo(e) {
+      // 放心这是假登录
+      wx.setStorageSync('token', 'admin')
+      wx.setStorageSync('userInfo', {
+        'nickName': '阿兰哥哥',
+        'avatarUrl': 'https://wx.qlogo.cn/mmopen/vi_32/2fQRqEjs3aSsia8C1YYUsa6xpwdkmWfCE5tlgMfM3nBDG8NtfOu0byC6MluV3kOqLicAzTrHYSoTczwdcSib8AfYw/132'
+      })
+      toast('放心这是假登录：不管你允不允许，我自个儿存点东西、比心哦')
+      setTimeout(() => {
+        // 返回页面
+        wx.navigateBack()
+      }, 2000)
       // 用户允许
-      if (e.mp.detail.iv) {
-        showLoading('登录中')
-        this.gotInfo(e.mp.detail)
-      } else {
-        // 用户拒绝
-        toast('请先允许授权获取用户信息')
-      }
+      // if (e.mp.detail.iv) {
+      //   showLoading('登录中')
+      //   this.gotInfo(e.mp.detail)
+      // } else {
+      //   // 用户拒绝
+      //   toast('请先允许授权获取用户信息')
+      // }
     }
   }
 }

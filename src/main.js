@@ -21,10 +21,6 @@ export default {
       'pages/login/main',
       'pages/album/main',
       'pages/play/main',
-      'pages/joinus/main',
-      'pages/more/main',
-      'pages/clock/main',
-      'pages/clockshare/main',
       'pages/poster/main'
     ],
     window: {

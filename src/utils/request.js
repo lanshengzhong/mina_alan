@@ -7,7 +7,7 @@ request.config.headers = {'content-type': 'application/json'}
 // 设置超时
 request.config.timeout = 30000
 // 设置请求基地址
-request.config.baseURL = 'https://app.hzhui.com/api/xcx/'
+request.config.baseURL = 'https://easy-mock.com/mock/5aa890739674a054fd78bc41/example'
 
 request.interceptors.request.use((request) => {
   // 在当前页面显示导航条加载动画
