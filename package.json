@@ -1,8 +1,8 @@
 {
-  "name": "mina_alan",
+  "name": "mpvue-miniapp",
   "version": "1.0.0",
   "description": "A Mpvue project",
-  "author": "https://github.com/lanshengzhong",
+  "author": "https://github.com/lanshengzhong/mina_alan",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
@@ -13,19 +13,21 @@
   "dependencies": {
     "flyio": "^0.5.9",
     "js-base64": "^2.4.3",
-    "mpvue": "^1.0.12",
+    "mpvue": "^1.0.11",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "mpvue-loader": "^1.0.13",
+    "mpvue-loader": "^1.1.1-rc.2",
     "mpvue-webpack-target": "^1.0.0",
     "mpvue-template-compiler": "^1.0.11",
     "portfinder": "^1.0.13",
     "postcss-mpvue-wxss": "^1.0.0",
+    "prettier": "~1.12.1",
     "px2rpx-loader": "^0.1.10",
     "babel-core": "^6.22.1",
     "glob": "^7.1.2",
-    "webpack-mpvue-asset-plugin": "^0.0.2",
+    "webpack-mpvue-asset-plugin": "^0.1.0",
+    "relative": "^3.0.2",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.1",
     "babel-plugin-transform-runtime": "^6.22.0",

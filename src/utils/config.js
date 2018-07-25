@@ -9,7 +9,7 @@ export default {
   appid: 'wx86700191910319e0',
   channel: 'alan',
   shareinfo: {
-    title: '国学启蒙，德才兼备！',
+    title: '阿兰哥哥',
     imageUrl: data[2-1].album.share_cover
   }
 }
