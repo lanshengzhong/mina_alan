@@ -1,4 +1,4 @@
-# mpvue-miniapp
+# mpvue-miniapp【[mpvue](https://github.com/Meituan-Dianping/mpvue) 已经停止维护】
 
 > A Mpvue project
 
